@@ -1,0 +1,40 @@
+user scs scs;
+
+worker_processes 2;
+
+error_log /var/log/nginx/error.log;
+pid /var/run/nginx/nginx.pid;
+
+daemon off;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    access_log /var/log/nginx/access.log;
+
+    gzip on;
+    gzip_comp_level 2;
+    gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+    gzip_min_length 1024;
+    gzip_proxied expired no-cache no-store private auth;
+    gzip_types application/json text/css text/javascript text/plain text/xml;
+
+    upstream jenkins {
+        server 127.0.0.1:8080;
+    }
+
+    server {
+        listen 80 default_server;
+
+        server_name <%= scope['http_host'] %>;
+
+        location / {
+            proxy_set_header X-Forwarded-For $remote_addr;
+            proxy_set_header Host $http_host;
+            proxy_redirect off;
+            proxy_pass http://jenkins;
+        }
+    }
+}

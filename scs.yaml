@@ -1,0 +1,32 @@
+engine:
+  docker:
+    from: 'scs-base'
+config:
+  method: puppet
+provide:
+  http:
+    description: Jenkins HTTP
+    port: 80
+  jnlp:
+    port: 49187
+require:
+  http:
+    description: Jenkins HTTP
+volume:
+  home:
+    description: Storage
+logs:
+  - path: /var/log/nginx/error.log
+    type: nginx-error
+  - path: /var/log/nginx/access.log
+    type: nginx-access
+  - path: /var/log/supervisor/nginx-stdout.log
+    type: nginx-stdout
+  - path: /var/log/supervisor/nginx-stderr.log
+    type: nginx-stderr
+  - path: /var/log/supervisor/jenkins-stdout.log
+    type: jenkins-stdout
+  - path: /var/log/supervisor/jenkins-stderr.log
+    type: jenkins-stderr
+  - path: /var/log/jenkins/jenkins.log
+    type: jenkins

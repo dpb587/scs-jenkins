@@ -1,0 +1,24 @@
+image:
+  source:
+      type: cwd
+  engine:
+    method: docker
+#  config:
+#    plugin:
+#      github: []
+#      github-api: []
+#      ghprb: []
+#      github-oauth: []
+container:
+  name:
+    environment: dev
+    service: scs-jenkins
+    role: test
+  provide:
+    http:
+      method: disco
+      options:
+        publish.port: 80
+  volume:
+    home:
+      method: local

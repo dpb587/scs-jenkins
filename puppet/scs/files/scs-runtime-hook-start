@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+chown -R scs:scs /mnt/home
+
+rm -fr /mnt/home/plugins
+mkdir /mnt/home/plugins
+ln -s /usr/share/jenkins/plugins/* /mnt/home/plugins
+
+[[ ! -e /mnt/home/plugins ]] || ln -s /usr/share/jenkins/plugins /mnt/home/plugins

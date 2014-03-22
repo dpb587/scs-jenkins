@@ -1,0 +1,6 @@
+[program:jenkins]
+command = /usr/bin/java -jar /usr/share/jenkins/jenkins.war --logfile /var/log/jenkins/jenkins.log
+environment = JENKINS_HOME=/mnt/home
+stdout_logfile = /var/log/supervisor/jenkins-stdout.log
+stderr_logfile = /var/log/supervisor/jenkins-stderr.log
+stopwaitsecs = 30
